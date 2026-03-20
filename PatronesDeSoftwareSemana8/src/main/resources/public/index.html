@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Defensa de Torres - Proyecto académico del patrón Decorator">
+    <title>⚔️ Defensa de Torres — Patrón Decorator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1>⚔️ Defensa de Torres</h1>
+            <p class="subtitle">Patrón de Diseño Decorator — Construcción Dinámica</p>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- Torre Base -->
+        <section class="card" id="base-tower-section">
+            <div class="card-header">
+                <h2>🏰 Torre Base</h2>
+                <span class="badge">Componente Base</span>
+            </div>
+            <div class="card-body">
+                <div class="stats-grid" id="base-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Daño</span>
+                        <span class="stat-value" id="base-damage">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Alcance</span>
+                        <span class="stat-value" id="base-range">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Velocidad</span>
+                        <span class="stat-value" id="base-speed">—</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Costo</span>
+                        <span class="stat-value" id="base-cost">—</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mejoras Disponibles -->
+        <section class="card" id="upgrades-section">
+            <div class="card-header">
+                <h2>🔧 Mejoras Disponibles</h2>
+                <span class="badge">Decoradores</span>
+            </div>
+            <div class="card-body">
+                <div class="upgrades-grid" id="upgrades-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Construcción de Torre -->
+        <section class="card" id="build-section">
+            <div class="card-header">
+                <h2>🔨 Construcción de Torre</h2>
+                <span class="badge">Decoradores Aplicados</span>
+            </div>
+            <div class="card-body">
+                <div class="build-area">
+                    <div class="selected-upgrades" id="selected-upgrades">
+                        <p class="empty-message">Selecciona mejoras para construir tu torre</p>
+                    </div>
+                    <div class="build-actions">
+                        <button class="btn btn-primary" id="btn-build" disabled>
+                            🏗️ Construir Torre
+                        </button>
+                        <button class="btn btn-secondary" id="btn-clear">
+                            🗑️ Limpiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estadísticas Finales -->
+        <section class="card hidden" id="final-stats-section">
+            <div class="card-header">
+                <h2>📊 Estadísticas Finales</h2>
+                <span class="badge badge-success">Torre Construida</span>
+            </div>
+            <div class="card-body">
+                <p class="tower-description" id="tower-description"></p>
+                <div class="stats-grid" id="final-stats">
+                    <div class="stat-item stat-highlight">
+                        <span class="stat-label">Daño</span>
+                        <span class="stat-value" id="final-damage">—</span>
+                    </div>
+                    <div class="stat-item stat-highlight">
+                        <span class="stat-label">Alcance</span>
+                        <span class="stat-value" id="final-range">—</span>
+                    </div>
+                    <div class="stat-item stat-highlight">
+                        <span class="stat-label">Velocidad</span>
+                        <span class="stat-value" id="final-speed">—</span>
+                    </div>
+                    <div class="stat-item stat-highlight">
+                        <span class="stat-label">Costo Total</span>
+                        <span class="stat-value" id="final-cost">—</span>
+                    </div>
+                </div>
+                <div class="effects-container" id="effects-container">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Simulación de Oleada -->
+        <section class="card hidden" id="wave-section">
+            <div class="card-header">
+                <h2>🌊 Simulación de Oleada</h2>
+                <span class="badge">Combate</span>
+            </div>
+            <div class="card-body">
+                <div class="wave-controls">
+                    <div class="wave-selector">
+                        <label for="wave-number">Número de oleada:</label>
+                        <select id="wave-number">
+                            <option value="1">Oleada 1 — Goblins</option>
+                            <option value="2">Oleada 2 — Goblins + Orcos</option>
+                            <option value="3">Oleada 3 — Orcos + Magos + Troll</option>
+                            <option value="4">Oleada 4 — Avanzada</option>
+                            <option value="5">Oleada 5 — Élite</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-danger" id="btn-simulate">
+                        ⚔️ Simular Combate
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultado del Combate -->
+        <section class="card hidden" id="result-section">
+            <div class="card-header">
+                <h2>🏆 Resultado del Combate</h2>
+                <span class="badge" id="result-badge">—</span>
+            </div>
+            <div class="card-body">
+                <div class="result-summary" id="result-summary">
+                    <div class="result-row">
+                        <span>Resultado:</span>
+                        <span id="result-victory" class="result-value">—</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Enemigos derrotados:</span>
+                        <span id="result-enemies" class="result-value">—</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Daño total:</span>
+                        <span id="result-damage" class="result-value">—</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Oro ganado:</span>
+                        <span id="result-gold" class="result-value">—</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Turnos totales:</span>
+                        <span id="result-ticks" class="result-value">—</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registro de Batalla -->
+        <section class="card hidden" id="log-section">
+            <div class="card-header">
+                <h2>📜 Registro de Batalla</h2>
+                <span class="badge">Log Detallado</span>
+            </div>
+            <div class="card-body">
+                <div class="battle-log" id="battle-log">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>Proyecto Académico — Patrón de Diseño Decorator — Patrones de Software</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
